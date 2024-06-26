@@ -6,4 +6,4 @@
 
 - name: Uninstall gcsfuse
   ansible.builtin.import_tasks: uninstall.yml
-  when: gcsfuse_install
+  when: not gcsfuse_install

@@ -1,5 +1,11 @@
 ---
 # tasks file for gcsfuse
+
+- name: Add an Apt signing key, will not download if present
+  ansible.builtin.apt_key:
+    url: "{{ gcsfuse_repo_key_url }}"
+    state: present
+
 - name: Add GCSfuse repository into sources list
   ansible.builtin.apt_repository:
     repo: "deb {{ gcsfuse_repo_url }}"
