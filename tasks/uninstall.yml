@@ -8,3 +8,10 @@
   ansible.builtin.file:
     path: "{{ _gcsfuse_repo_path_gpg_key }}"
     state: absent
+
+- name: Uninstall gcsfuse
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    update_cache: true
+  loop:
+    - "gcsfuse"

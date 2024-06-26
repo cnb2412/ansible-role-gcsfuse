@@ -13,3 +13,11 @@
         repo: "deb {{ gcsfuse_repo_url }}"
         filename: "{{ _gcsfuse_repo_filename }}"
         state: present
+
+- name: Install fuse and gcsfuse
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    update_cache: true
+  loop:
+    - "fuse"
+    - "gcsfuse"
