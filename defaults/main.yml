@@ -1,0 +1,4 @@
+---
+# defaults file for gcsfuse
+gcsfuse_install: true
+gcsfuse_repo_url: "https://packages.cloud.google.com/apt gcsfuse-{{ ansible_distribution_release }} main"

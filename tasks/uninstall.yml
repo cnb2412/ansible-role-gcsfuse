@@ -1,0 +1,5 @@
+- name: Add GCSfuse repository into sources list
+  ansible.builtin.apt_repository:
+    repo: "deb {{ gcsfuse_repo_url }}"
+    state: absent
+    filename: gcsfuse

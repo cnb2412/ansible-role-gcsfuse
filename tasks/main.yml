@@ -1,0 +1,9 @@
+---
+# tasks file for gcsfuse
+- name: Install gcsfuse
+  ansible.builtin.import_tasks: install.yml
+  when: gcsfuse_install
+
+- name: Uninstall gcsfuse
+  ansible.builtin.import_tasks: uninstall.yml
+  when: gcsfuse_install
