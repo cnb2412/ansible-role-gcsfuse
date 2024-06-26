@@ -1,13 +1,15 @@
 ---
 # tasks file for gcsfuse
-
-- name: Add an Apt signing key, will not download if present
-  ansible.builtin.apt_key:
-    url: "{{ gcsfuse_repo_key_url }}"
-    state: present
-
 - name: Add GCSfuse repository into sources list
-  ansible.builtin.apt_repository:
-    repo: "deb {{ gcsfuse_repo_url }}"
-    filename: gcsfuse
-    state: present
+  block:
+    - name: Gcsfuse repo key | no apt key
+      ansible.builtin.get_url:
+        url: "{{ gcsfuse_repo_key_url }}"
+        dest: "{{ _gcsfuse_repo_path_gpg_key }}"
+        mode: "0644"
+
+    - name: Install gcsfuse repo
+      ansible.builtin.apt_repository:
+        repo: "deb {{ gcsfuse_repo_url }}"
+        filename: "{{ _gcsfuse_repo_filename }}"
+        state: present

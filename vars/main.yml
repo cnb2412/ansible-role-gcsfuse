@@ -1,2 +1,4 @@
 ---
 # vars file for gcsfuse
+_gcsfuse_repo_filename: gcsfuse
+_gcsfuse_repo_path_gpg_key: "/etc/apt/keyrings/{{ _gcsfuse_repo_filename }}.gpg"
