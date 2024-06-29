@@ -8,4 +8,4 @@
       key-file={{ item.gcp_keyfile }}
     fstype: gcsfuse
     state: mounted
-  loop: gcsfuse_mounts
+  loop: "{{ gcsfuse_mounts }}"
