@@ -7,5 +7,5 @@
       rw,x-systemd.requires=network-online.target,user,
       key-file={{ item.gcp_keyfile }}
     fstype: gcsfuse
-    state: mounted
+    state: present
   loop: "{{ gcsfuse_mounts }}"
