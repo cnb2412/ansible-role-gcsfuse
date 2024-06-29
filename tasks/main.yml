@@ -4,6 +4,10 @@
   ansible.builtin.import_tasks: install.yml
   when: gcsfuse_install
 
+- name: Config mounts
+  ansible.builtin.import_tasks: mounts.yml
+  when: gcsfuse_install
+
 - name: Uninstall gcsfuse
   ansible.builtin.import_tasks: uninstall.yml
   when: not gcsfuse_install

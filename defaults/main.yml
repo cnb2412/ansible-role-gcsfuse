@@ -3,3 +3,4 @@
 gcsfuse_install: true
 gcsfuse_repo_url: "https://packages.cloud.google.com/apt gcsfuse-{{ ansible_distribution_release }} main"
 gcsfuse_repo_key_url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+gcsfuse_mounts: []
