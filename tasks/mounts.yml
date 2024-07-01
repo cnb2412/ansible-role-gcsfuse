@@ -1,4 +1,13 @@
 ---
+- name: Mount Directory exists
+  ansible.builtin.file:
+    path: "{{ item.mount_point }}"
+    state: directory
+    mode: "{{ item.mode | default('0700') }}"
+    owner: "{{ item.user }}"
+    group: "{{ item.group }}"
+  loop: "{{ gcsfuse_mounts }}"
+
 - name: Get all user info
   ansible.builtin.getent:
     database: passwd
