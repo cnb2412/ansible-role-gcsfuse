@@ -3,7 +3,7 @@
   ansible.posix.mount:
     src: "{{ item.bucket }}"
     path: "{{ item.mount_point }}"
-    opts: >1-
+    opts: >-1
       {{ 'rw' if not item.readonly | default(false) else 'ro' }},
       x-systemd.requires=network-online.target,
       user,key_file={{ item.gcp_keyfile }}
