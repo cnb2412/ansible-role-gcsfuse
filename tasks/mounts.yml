@@ -3,6 +3,12 @@
   ansible.builtin.getent:
     database: passwd
 
+- name: Debug
+  ansible.builtin.debug:
+    msg: |
+      {{ item.user }} uid: {{ getent_passwd[item.user].1 }}
+  loop: "{{ gcsfuse_mounts }}"
+
 - name: Mount GCS Fuse
   ansible.posix.mount:
     src: "{{ item.bucket }}"
