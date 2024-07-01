@@ -1,19 +1,24 @@
 ---
-- name: Get root user info
+- name: Get all user info
   ansible.builtin.getent:
     database: passwd
+
+- name: Get all groups
+  ansible.builtin.getent:
+    database: group
+    split: ":"
 
 - name: Debug
   ansible.builtin.debug:
     msg: |
-      {{ item.user }} uid: {{ getent_passwd[item.user].1 }}
+      {{ item.group }} uid: {{ getent_passwd[item.group].1 }}
   loop: "{{ gcsfuse_mounts }}"
 
 - name: Mount GCS Fuse
   ansible.posix.mount:
     src: "{{ item.bucket }}"
     path: "{{ item.mount_point }}"
-    opts: "{{ 'rw' if not item.readonly | default(false) else 'ro' }},x-systemd.requires=network-online.target,key_file={{ item.gcp_keyfile }},uid={{ getent_passwd[item.user].1 | default('0') }},gid={{ item.gid | default('0') }}" # noqa yaml[line-length]
+    opts: "{{ 'rw' if not item.readonly | default(false) else 'ro' }},x-systemd.requires=network-online.target,key_file={{ item.gcp_keyfile }},uid={{ getent_passwd[item.user].1 | default('0') }},gid={{ getent_passwd[item.group].1 | default('0') }}" # noqa yaml[line-length]
     fstype: gcsfuse
     state: "{{ item.state | default('mounted') }}"
   loop: "{{ gcsfuse_mounts }}"
