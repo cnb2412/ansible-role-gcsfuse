@@ -8,12 +8,6 @@
     database: group
     split: ":"
 
-- name: Debug
-  ansible.builtin.debug:
-    msg: |
-      {{ item.group }} gid: {{ getent_group[item.group].1 }}
-  loop: "{{ gcsfuse_mounts }}"
-
 - name: Mount GCS Fuse
   ansible.posix.mount:
     src: "{{ item.bucket }}"
