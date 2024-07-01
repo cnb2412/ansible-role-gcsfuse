@@ -4,7 +4,9 @@
     src: "{{ item.bucket }}"
     path: "{{ item.mount_point }}"
     opts: >-
-      rw,x-systemd.requires=network-online.target,user,key_file={{ item.gcp_keyfile }}
+      {{ 'rw' if not item.readonly | default(false) else 'ro'}},
+      x-systemd.requires=network-online.target,
+      user,key_file={{ item.gcp_keyfile }}
     fstype: gcsfuse
     state: "{{ item.state | default('mounted') }}"
   loop: "{{ gcsfuse_mounts }}"
