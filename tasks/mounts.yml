@@ -21,7 +21,7 @@
   ansible.posix.mount:
     src: "{{ item.bucket }}"
     path: "{{ item.mount_point }}"
-    opts: "{{ 'rw' if not item.readonly | default(false) else 'ro' }},x-systemd.requires=network-online.target,key_file={{ item.gcp_keyfile }},uid={{ getent_passwd[item.user].1 | default('0') }},gid={{ getent_group[item.group].1 | default('0') }}" # noqa yaml[line-length]
+    opts: "{{ 'rw' if not item.readonly | default(false) else 'ro' }},x-systemd.requires=network-online.target,key_file={{ item.gcp_keyfile }},uid={{ getent_passwd[item.user].1 | default('0') }},gid={{ getent_group[item.group].1 | default('0') }},allow_other" # noqa yaml[line-length]
     fstype: gcsfuse
     state: "{{ item.state | default('mounted') }}"
   loop: "{{ gcsfuse_mounts }}"
