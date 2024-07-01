@@ -1,3 +1,13 @@
+- name: Unmount GCS Fuse
+  ansible.posix.mount:
+    src: "{{ item.bucket }}"
+    path: "{{ item.mount_point }}"
+    opts: >-
+      rw,x-systemd.requires=network-online.target,user,key_file={{ item.gcp_keyfile }}
+    fstype: gcsfuse
+    state: absent
+  loop: "{{ gcsfuse_mounts }}"
+
 - name: Remove GCSfuse repository into sources list
   ansible.builtin.apt_repository:
     repo: "deb {{ gcsfuse_repo_url }}"

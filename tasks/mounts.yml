@@ -6,5 +6,5 @@
     opts: >-
       rw,x-systemd.requires=network-online.target,user,key_file={{ item.gcp_keyfile }}
     fstype: gcsfuse
-    state: present
+    state: "{{ item.state | default('mounted') }}"
   loop: "{{ gcsfuse_mounts }}"
